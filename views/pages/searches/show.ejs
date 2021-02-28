@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book App</title>
+    <link rel="shortcut icon" href="https://www.freeiconspng.com/uploads/book-icon--icon-search-engine-6.png"
+        type="image/x-icon">
+</head>
+
+<body>
+
+    <% allBooks.forEach(element=> { %>
+        <div class="book">
+            <img src="<%= element.img_url %>" alt="" class="book-cover">
+            <h2 class="book-title">
+                <%= element.title %>
+            </h2>
+            <h6 class="book-author">
+                <%= element.author %>
+            </h6>
+            <p class="book-description">
+                <%= element.description %>
+            </p>
+        </div>
+        <% }); %>
+
+
+</body>
+
+</html>
