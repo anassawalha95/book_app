@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book App</title>
+    <link rel="shortcut icon" href="https://www.freeiconspng.com/uploads/book-icon--icon-search-engine-6.png"
+        type="image/x-icon">
+</head>
+
+<body>
+    <form action="/searches" method="POST">
+
+        <input type="text" id="bookTitleOrAuthor" name="bookTitleOrAuthor"
+            placeholder="Enter a Title or Author:"><br><br>
+
+        <label for="author">Title</label> <input type="radio" name="filterBy" id="title" value="title"><br><br>
+
+
+        <label for="author">Author</label> <input type="radio" name="filterBy" id="author" value="author"><br><br>
+
+
+        <input type="submit" value="Search The Google Books API">
+    </form>
+</body>
+
+</html>
