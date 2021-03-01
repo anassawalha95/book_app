@@ -1,3 +1,5 @@
+<h1>Book App</h1>
+
 <% allBooks.forEach(element=> { %>
     <div class="book">
 
@@ -14,11 +16,9 @@
         <p class="book-isbn">
             <%= element.isbn %>
         </p>
-        <p class="book-book_shelf">
+        <p class="book-shelf">
             <%= element.book_shelf %>
         </p>
-
-        <a href="/books/detail/<%= element.id %>" class="show-book-details" value="">Select This Book</a>
 
     </div>
     <% }); %>

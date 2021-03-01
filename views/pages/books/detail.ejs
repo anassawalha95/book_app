@@ -1,6 +1,5 @@
-<% allBooks.forEach(element=> { %>
+<% Book.forEach(element=> { %>
     <div class="book">
-
         <img src="<%= element.img_url %>" alt="" class="book-cover">
         <h2 class="book-title">
             <%= element.title %>
@@ -14,11 +13,8 @@
         <p class="book-isbn">
             <%= element.isbn %>
         </p>
-        <p class="book-book_shelf">
+        <p class="book-shelf">
             <%= element.book_shelf %>
         </p>
-
-        <a href="/books/detail/<%= element.id %>" class="show-book-details" value="">Select This Book</a>
-
     </div>
     <% }); %>
