@@ -5,8 +5,9 @@ const superAgent = require('superagent')
 const pg = require('pg');
 require('dotenv').config();
 const expresslayout = require("express-ejs-layouts")
+const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 
-const client = new pg.Client(process.env.DATABASE_URL)
+//const client = new pg.Client(process.env.DATABASE_URL)
 const PORT = process.env.PORT || 3000
 const app = express();
 
