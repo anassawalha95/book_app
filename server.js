@@ -11,13 +11,13 @@ const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: 
 const PORT = process.env.PORT || 3000
 const app = express();
 
-app.use(expresslayout)
+app.set('view engine', 'ejs')
 app.use(express.static('./public'))
 app.use(express.urlencoded({ extended: true }))
+app.use(expresslayout)
 
 
 
-app.set('view engine', 'ejs')
 
 app.get('/', home);
 app.get('/searches/new', newSearch);
@@ -26,8 +26,8 @@ app.post('/savebook', saveBook);
 app.get('/books/detail/:id', showBookDetails);
 app.get('/books/show', showAllBooks);
 
-// app.get('*', unknownRoute);
-// app.use(errorHandler)
+app.get('*', unknownRoute);
+app.use(errorHandler)
 
 
 
@@ -51,15 +51,14 @@ function home(req, res, next) {
     client.query(SQL)
         .then((data) => {
             //res.json({ allBooks: data.rows, numberOfBooks: data.rowCount });
-            res.render('pages/index', { allBooks: data.rows, numberOfBooks: data.rowCount });
-        })//.catch(next);
+            return res.render('pages/index', { allBooks: data.rows, numberOfBooks: data.rowCount });
+        }).catch(next);
 
 }
 
 // Search Render
 function newSearch(req, res, next) {
-    console.log("in")
-    res.render("pages/searches/new")
+    return res.render("pages/searches/new")
 }
 
 // Search Handler
@@ -81,13 +80,13 @@ function searchForBooks(req, res, next) {
                 let book = new Book(val);
                 return book;
             })
-            res.render('pages/searches/show', { allBooks: books });
+            return res.render('pages/searches/show', { allBooks: books });
 
-        })//.catch(next);
+        }).catch(next);
 }
 
 
-
+// save a book Handler
 
 function saveBook(req, res, next) {
     let { img_url, title, author, description, isbn, book_shelf } = req.body;
@@ -97,44 +96,47 @@ function saveBook(req, res, next) {
     description = validateData(description, 'No Description Available')
     isbn = validateData(isbn, "No ISBN")
     book_shelf = validateData(book_shelf, "Unknow Category")
-    let SQL = `INSERT INTO book(img_url,title,author,description,isbn,book_shelf) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id;`
+    let SQL = `INSERT INTO book(img_url,title,author,description,isbn,book_shelf) VALUES ($1,$2,$3,$4,$5,$6)  returning id  ;`
     let safe = [img_url, title, author, description, isbn, book_shelf];
     client.query(SQL, safe)
         .then((result) => {
-
-            res.redirect(`/books/${result.rows[0].id}`);
-        })
+            c.log(result)
+            return res.redirect(`/books/detail/${result.rows[0].id}`);
+        }).catch(next);
 }
 
 
+// show a book details Handler
 function showBookDetails(req, res) {
 
     let SQL = `SELECT * FROM book WHERE id = $1;`;
-    let safe = [req.params.id];
+    let safe = [+req.params.id];
+    c.log(safe)
     client.query(SQL, safe)
         .then(result => {
-
-            res.render('pages/books/detail', { Book: result.rows });
-        })
+            c.log(result.rows)
+            return res.render('pages/books/detail', { Book: result.rows });
+        })//.catch(next);
 
 }
-
+// show all books Handler
 function showAllBooks(req, res) {
     let SQL = "SELECT * FROM book;";
     client.query(SQL)
         .then((data) => {
 
-            res.render('pages/books/show', { allBooks: data.rows, numberOfBooks: data.rowCount });
-        });
+            return res.render('pages/books/show', { allBooks: data.rows, numberOfBooks: data.rowCount });
+        }).catch(next);
 }
 
-// function unknownRoute(req, res, next) {
-//     res.render('/pages/error')
-// }
-// function errorHandler(error, req, res, next) {
-//     res.render('pages/error', { status: 500, text: error });
+function unknownRoute(req, res, next) {
+    res.render('/pages/error')
+}
+function errorHandler(error, req, res, next) {
+    res.render('pages/error', { status: 500, text: error });
 
-// }
+
+}
 
 
 client.connect()
