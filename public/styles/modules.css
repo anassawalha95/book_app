@@ -44,13 +44,21 @@
     width: 75%;
 }
 
-a {
-    /* text-decoration: none;
-    color: white; */
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
 /* end of 404 design */
+
+.book {
+    background-color: #EEEEEE;
+    padding: 2em;
+}
+
+.book-cover {}
+
+.book-title {}
+
+.book-author {}
+
+.book-isbn {}
+
+.book-shelf {}
+
+.show-book-details {}

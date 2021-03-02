@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+body {
+    background-color: #9B9B9B;
+    box-sizing: border-box;
+}
+
+main {
+    margin-top: 2em;
+    display: grid;
+    grid-gap: 2em;
+    grid-template-columns: repeat(auto-fill, 20em);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

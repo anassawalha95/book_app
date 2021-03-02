@@ -18,7 +18,17 @@
             <%= element.book_shelf %>
         </p>
 
-        <a href="/books/detail/<%= element.id %>" class="show-book-details" value="">Select This Book</a>
 
+        <form action="/savebook" method="post">
+
+            <input type="text" name='title' value="<%= element.title %>" style="display: none;">
+            <input type="text" name='author' value="<%= element.author %>" style="display: none;">
+            <input type="text" name='img_url' value="<%= element.img_url %>" style="display: none;">
+            <textarea type="text" name='description' cols="40" rows="20"
+                style="display: none;"><%= element.description %></textarea>
+            <input type="text" name="book_shelf" value="<%= element.bookshelf %>" style="display: none;">
+            <button type="submit">Select This Book </button>
+            ​
+        </form>
     </div>
     <% }); %>

@@ -1,0 +1,4 @@
+function toggleNav() {
+    $("#nav").toggle();
+
+}
