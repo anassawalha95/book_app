@@ -5,6 +5,8 @@ const superAgent = require('superagent')
 const pg = require('pg');
 require('dotenv').config();
 const expresslayout = require("express-ejs-layouts")
+const methodOverride = require('method-override');
+
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 
 //const client = new pg.Client(process.env.DATABASE_URL)
@@ -15,7 +17,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('./public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(expresslayout)
-
+app.use(methodOverride('method'));
 
 
 
@@ -23,9 +25,11 @@ app.get('/', home);
 app.get('/searches/new', newSearch);
 app.post('/searches', searchForBooks);
 app.post('/savebook', saveBook);
-app.get('/books/detail/:id', showBookDetails);
 app.get('/books/show', showAllBooks);
-
+app.get('/books/detail/:id', showBookDetails);
+app.post('/books/edit/:id', editBook);
+app.put('/updateBook/:id', updateBook)
+app.delete('/deleteBook/:id', deleteBook)
 app.get('*', unknownRoute);
 app.use(errorHandler)
 
@@ -98,29 +102,29 @@ function saveBook(req, res, next) {
     book_shelf = validateData(book_shelf, "Unknow Category")
     let SQL = `INSERT INTO book(img_url,title,author,description,isbn,book_shelf) VALUES ($1,$2,$3,$4,$5,$6)  returning id  ;`
     let safe = [img_url, title, author, description, isbn, book_shelf];
+
     client.query(SQL, safe)
         .then((result) => {
-            c.log(result)
             return res.redirect(`/books/detail/${result.rows[0].id}`);
         }).catch(next);
 }
 
 
 // show a book details Handler
-function showBookDetails(req, res) {
+function showBookDetails(req, res, next) {
 
     let SQL = `SELECT * FROM book WHERE id = $1;`;
     let safe = [+req.params.id];
-    c.log(safe)
+
     client.query(SQL, safe)
         .then(result => {
-            c.log(result.rows)
-            return res.render('pages/books/detail', { Book: result.rows });
-        })//.catch(next);
+            res.render('pages/books/detail', { Book: result.rows });
+        }).catch(next);
+
 
 }
 // show all books Handler
-function showAllBooks(req, res) {
+function showAllBooks(req, res, next) {
     let SQL = "SELECT * FROM book;";
     client.query(SQL)
         .then((data) => {
@@ -129,11 +133,45 @@ function showAllBooks(req, res) {
         }).catch(next);
 }
 
+function editBook(req, res, next) {
+
+    let SQL = `SELECT * FROM book WHERE id = $1;`;
+    let safe = [+req.params.id];
+    client.query(SQL, safe)
+        .then(result => {
+            return res.render("pages/books/edit", { Book: result.rows })
+        }).catch(next);
+
+}
+
+function updateBook(req, res, next) {
+
+    let { img_url, title, author, description, isbn, book_shelf } = req.body;
+    let SQL = `UPDATE book SET img_url=$1,title=$2,author=$3,description=$4,isbn=$5,book_shelf=$6 WHERE id =$7 returning id`
+    let id = req.params.id;
+    let safe = [img_url, title, author, description, isbn, book_shelf, id];
+    client.query(SQL, safe)
+        .then(() => {
+
+            return res.redirect(`/books/detail/${id}`);
+        }).catch(next);
+}
+
+function deleteBook(req, res) {
+    let SQL = `DELETE FROM book WHERE id=$1;`;
+    let safe = [req.params.id];
+    client.query(SQL, safe)
+        .then(() => {
+            res.redirect('/');
+        });
+
+};
+
 function unknownRoute(req, res, next) {
     res.render('/pages/error')
 }
 function errorHandler(error, req, res, next) {
-    res.render('pages/error', { status: 500, text: error });
+    res.render('pages/error');
 
 
 }

@@ -1,7 +1,6 @@
 /* 404 design */
 
 .mainbox {
-    background-color: #95c2de;
     margin: auto;
     height: 600px;
     width: 600px;
@@ -47,18 +46,127 @@
 /* end of 404 design */
 
 .book {
-    background-color: #EEEEEE;
+    background-color: #D8D8D8;
     padding: 2em;
+    height: 30em;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 0.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
-.book-cover {}
+.book-cover {
+    width: 60%;
+    height: 40%;
+    border-radius: 0.3em;
+}
 
-.book-title {}
+.book-title {
+    padding: 1.5em 0em 0.5em 0em;
+    color: white;
+    text-shadow: 2px 2px #888888;
+    font-size: 0.9em;
+}
 
-.book-author {}
+.book-author {
+    font-style: italic;
+    font-size: 0.5em;
+    color: black;
+    font-style: italic;
+    font-size: 0.7em;
+    color: black;
+}
 
-.book-isbn {}
+.book-description {
+    padding: 1.5em 0.5em;
+    text-align: left;
+    font-size: 0.6em;
+    color: black;
+    background: #EEEEEE;
+    border-radius: 0.4em;
+}
 
-.book-shelf {}
+.book-isbn {
+    font-style: italic;
+    font-size: 0.5em;
+    color: black;
+    font-style: italic;
+    font-size: 0.7em;
+    color: black;
+}
 
-.show-book-details {}
+.book-shelf {
+    font-style: italic;
+    font-size: 0.5em;
+    color: black;
+    font-style: italic;
+    font-size: 0.7em;
+    color: black;
+}
+
+.show-book-details {
+    background-color: black;
+    padding: 1em;
+    border-radius: 0.2em;
+}
+
+.book-btn {
+    background-color: black;
+    padding: 1em 3em;
+    border-radius: 0.2em;
+    border: none;
+    width: 17em;
+    cursor: pointer;
+}
+
+.sub-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9em 0;
+    background-color: rgba(14, 14, 14, 0.7);
+}
+
+.number-of-books-saved {
+    background-color: #D8D8D8;
+    border-radius: 50%;
+    padding: 0.2em;
+    margin-right: 0.3em;
+}
+
+.update-form input, textarea {
+    color: black;
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 0.3em;
+    border: none;
+    margin-top: 1.3em;
+}
+
+.update-form>.book-btn {
+    color: white;
+    width: auto;
+    padding: 1em 2em;
+}
+
+.search-form input {
+    color: black;
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 0.3em;
+    border: none;
+    margin-top: 1.3em;
+}
+
+.search-form input[type="radio"] {
+    width: auto;
+    padding: 0.5em;
+}
+
+.search-form>.book-btn {
+    color: white;
+    width: auto;
+    padding: 2em;
+}
