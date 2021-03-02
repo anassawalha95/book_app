@@ -18,22 +18,31 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
-    <script src="../js/app.js"></script>
+    <script src="/js/app.js"></script>
 </head>
-<header class="header">
-    <h1 class="website-name">Best Books!</h1>
-    <a class="icon" onclick="toggleNav()">
-        <i class="fa fa-bars"></i>
-    </a>
-</header>
-<nav id="nav" class="nav">
-    <a href="#news" class="nav-items nav-item">Home</a>
-    <a href="#contact" class="nav-items nav-item">Search The Google Books API</a>
-</nav>
+
 
 
 <body>
+    <header class="header">
+        <h1 class="website-name">Best Books!</h1>
+        <a class="icon" onclick="toggleNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </header>
+    <nav id="nav" class="nav">
+        <a href="/" class="nav-items ">Home</a>
+        <a href="/searches/new" class="nav-items ">Search The Google Books API</a>
+    </nav>
+
     <%- body %>
 </body>
+
+<footer class="footer">
+    <a><i class="fab fa-facebook"></i> </i></a>
+    <a><i class="fab fa-twitter"></i> </i></a>
+    <a><i class="fab fa-github"></i> </i></a>
+    <a><i class="fab fa-linkedin"></i> </i></a>
+</footer>
 
 </html>

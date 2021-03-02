@@ -1,34 +1,39 @@
-<% allBooks.forEach(element=> { %>
-    <div class="book">
+<div class="sub-info">Search Results</div>
+<main>
 
-        <img src="<%= element.img_url %>" alt="" class="book-cover">
-        <h2 class="book-title">
-            <%= element.title %>
-        </h2>
-        <h6 class="book-author">
-            <%= element.author %>
-        </h6>
-        <p class="book-description">
-            <%= element.description %>
-        </p>
-        <p class="book-isbn">
-            <%= element.isbn %>
-        </p>
-        <p class="book-book_shelf">
-            <%= element.book_shelf %>
-        </p>
+    <% allBooks.forEach(element=> { %>
+        <div class="book">
+
+            <img src="<%= element.img_url %>" alt="" class="book-cover">
+            <h2 class="book-title">
+                <%= element.title %>
+            </h2>
+            <h6 class="book-author">
+                <%= element.author %>
+            </h6>
+            <p class="book-description">
+                <%= element.description.split(" ").slice(0,30).join(" ")+ " ..." %>
+            </p>
+            <p class="book-isbn">
+                <%= element.isbn %>
+            </p>
+            <p class="book-shelf">
+                <%= element.book_shelf %>
+            </p>
 
 
-        <form action="/savebook" method="post">
+            <form action="/savebook" method="post">
 
-            <input type="text" name='title' value="<%= element.title %>" style="display: none;">
-            <input type="text" name='author' value="<%= element.author %>" style="display: none;">
-            <input type="text" name='img_url' value="<%= element.img_url %>" style="display: none;">
-            <textarea type="text" name='description' cols="40" rows="20"
-                style="display: none;"><%= element.description %></textarea>
-            <input type="text" name="book_shelf" value="<%= element.bookshelf %>" style="display: none;">
-            <button type="submit">Select This Book </button>
-            ​
-        </form>
-    </div>
-    <% }); %>
+                <input type="text" name='title' value="<%= element.title %>" style="display: none;">
+                <input type="text" name='author' value="<%= element.author %>" style="display: none;">
+                <input type="text" name='img_url' value="<%= element.img_url %>" style="display: none;">
+                <textarea type="text" name='description' cols="40" rows="20"
+                    style="display: none;"><%= element.description %></textarea>
+                <input type="text" name="book_shelf" value="<%= element.book_shelf %>" style="display: none;">
+                <button type="submit" class="book-btn">Select This Book </button>
+                ​
+            </form>
+        </div>
+        <% }); %>
+
+</main>
